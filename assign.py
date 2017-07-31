@@ -15,7 +15,7 @@ def reciever():
     
 def channel():
     if len(sys.argv) != 7:
-        print("we're fucked")
+        print("Too many command line arguments!")
         sys.exit
         
         
