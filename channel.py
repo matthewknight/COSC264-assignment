@@ -60,7 +60,7 @@ def channel():
     
     #Enters an infinite loop to perform tasks
     while 1:
-        pass
+        print("yaa")
 
 
     """
