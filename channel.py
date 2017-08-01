@@ -1,18 +1,7 @@
 import socket
 import sys
 
-def sender():
-    socket_in = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
-    
-    socket_out = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
-    
-    
-def reciever():
-    recieve_in = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
-
-    recieve_out = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
-    
-    
+  
 def channel():
 
     """Takes 7 command line arguments. These are:
