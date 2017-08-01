@@ -14,6 +14,7 @@ def reciever():
     
     
 def channel():
+
     """Takes 7 command line arguments. These are:
        -Four port numbers csin, csout, crin, crout
        -One port number sin socket of sender (To which channel will send packets to sender
@@ -35,6 +36,12 @@ def channel():
     
     #Create and bind all of the sockets
     
+    if len(sys.argv) != 7:
+        print("Too many command line arguments!")
+        sys.exit
+        
+        
+
     channel_s_in = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
     channel_s_in.bind(("", sys.argv[1]))
     
@@ -52,8 +59,7 @@ def channel():
     r_in_port = ('localhost', sys.argv[6])
     
     packet_loss_rate = float(sys.argv[7])
-    
-    
+   
     channel_s_out.connect((host, port))
     channel_r_out.connect((host, port))
     
@@ -63,6 +69,7 @@ def channel():
         pass
     
     
+
     
 class Packet(object, maginco, p_type, seqno, dataLen):
     def __init__(self):
@@ -71,4 +78,4 @@ class Packet(object, maginco, p_type, seqno, dataLen):
         self.seqno = seqno
         self.dataLen = dataLen
         self.data = data
-        
+
