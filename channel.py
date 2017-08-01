@@ -1,35 +1,31 @@
 import socket
 import sys
-
   
 def channel():
-
     """Takes 7 command line arguments. These are:
        -Four port numbers csin, csout, crin, crout
        -One port number sin socket of sender (To which channel will send packets to sender
        -One port number rin socket of the reciever (To which channel will send packets to reciever.
        -A floating point P which is the Packet Loss Rate. 0 <= P < 1
     """
-    
+     
     #Check if all arguments were recieved
-    if len(sys.argv) != 7:
+    if len(sys.argv) != 8:
         print("Not enough command line arguments passed. Please make sure there are 7.")
-        sys.exit
+        print("Only ", len(sys.argv), " arguments passed.")
+        sys.exit(0)
     #Check if all port numbers are valid. 1024 <= port < 64000
+
     if not (sys.argv[1] > 1024 and sys.argv[2] > 1024 and sys.argv[3] > 1024 and sys.argv[4] > 1024):
         print("Invalid port numbers used.")
-        sys.exit
+        sys.exit(0)
+    
     if not (sys.argv[1] < 64000 and sys.argv[2] < 64000 and sys.argv[3] < 64000 and sys.argv[4] < 64000):
             print("Invalid port numbers used.")
-            sys.exit    
+            sys.exit(0)   
     
     #Create and bind all of the sockets
-    
-    if len(sys.argv) != 7:
-        print("Too many command line arguments!")
-        sys.exit
-        
-        
+         
 
     channel_s_in = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
     channel_s_in.bind(("", sys.argv[1]))
@@ -56,10 +52,9 @@ def channel():
     #Enters an infinite loop to perform tasks
     while 1:
         pass
-    
-    
 
-    
+
+    """
 class Packet(object, maginco, p_type, seqno, dataLen):
     def __init__(self):
         self.maginco = maginco
@@ -68,3 +63,5 @@ class Packet(object, maginco, p_type, seqno, dataLen):
         self.dataLen = dataLen
         self.data = data
 
+"""
+channel() 
