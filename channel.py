@@ -27,16 +27,16 @@ def channel():
     #Create and bind all of the sockets
          
 
-    channel_s_in = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
+    channel_s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     channel_s_in.bind(("", sys.argv[1]))
     
-    channel_s_out = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
+    channel_s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     channel_s_out.bind(("", sys.argv[2]))
 
-    channel_r_in = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
+    channel_r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     channel_r_in.bind(("", sys.argv[3]))
     
-    channel_r_out = socket.socket(AF_INET, SOCKET.SOCK_STREAM)
+    channel_r_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     channel_r_out.bind(("", sys.argv[4]))
     
     
