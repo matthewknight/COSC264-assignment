@@ -19,13 +19,13 @@ def channel():
         sys.exit(0)
     #Check if all port numbers are valid. 1024 <= port < 64000
 
-    if sys.argv[1] < 1024 or sys.argv[2] < 1024 or sys.argv[3] < 1024 or sys.argv[4] < 1024:
+    if int(sys.argv[1]) < 1024 or int(sys.argv[2]) < 1024 or int(sys.argv[3]) < 1024 or int(sys.argv[4]) < 1024:
         print("Invalid port numbers used. Check numbers and try again.")
         sys.exit(0)
     
-    #if (sys.argv[1] > 64000) or (sys.argv[2] > 64000) or (sys.argv[3] > 64000) or (sys.argv[4] > 64000):
-    #    print("Invalid port numbers used. Check numbers and try again.2")          #UNSURE WHY THIS SECTION ISNT WORKING :(
-    #    sys.exit(0)   
+    if int(sys.argv[1]) > 64000 or int(sys.argv[2]) > 64000 or int(sys.argv[3]) > 64000 or int(sys.argv[4]) > 64000:
+        print("Invalid port numbers used. Check numbers and try again.2") 
+        sys.exit(0)   
     
     if float(sys.argv[7]) < 0.0 or float(sys.argv[7]) > 1.0:
         print("Precision value out of range!")
@@ -49,14 +49,17 @@ def channel():
     channel_r_out.bind(("", int(sys.argv[4])))
     
     
-    s_in_port = ('localhost', sys.argv[5])
-    r_in_port = ('localhost', sys.argv[6])
+    s_in_port = ('localhost', int(sys.argv[5]))
+    r_in_port = ('localhost', int(sys.argv[6]))
     
     packet_loss_rate = float(sys.argv[7])
    
-    channel_s_out.connect(('122.61.154.108', 7642))
-    channel_r_out.connect(('122.61.154.108', 38764))
-    
+    try:
+        channel_s_out.connect(('127.0.0.1', 7642))
+        channel_r_out.connect(('127.0.0.1', 38764))
+    except socket.error as socketerror:
+            print("Error: ", socketerror)  
+            sys.exit(0)
     
     #Enters an infinite loop to perform tasks
     while 1:
