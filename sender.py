@@ -1,17 +1,8 @@
 import socket
 import sys
 import cPickle as pickle
-
+from packet import Packet
 #Copy paste for running command from terminal - 7642 23501 38001 packet.txt
-
-class Packet(object):
-    def __init__(self, maginco, p_type, seqno, dataLen, data):
-        self.maginco = maginco
-        self.p_type = p_type
-        self.seqno = seqno
-        self.dataLen = dataLen
-        self.data = data
-        
 
 def sender():
     """
@@ -34,13 +25,29 @@ def sender():
         sys.exit(0)     
     
     
-    socket_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket_in.bind(("", int(sys.argv[1])))
-    socket_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket_out.bind(("", int(sys.argv[2])))
     
-    socket_out.connect(('127.0.0.1', 38001))
-    socket_out.recvfrom(38001)
+    
+    socket_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket_in.bind(('', int(sys.argv[1])))
+    socket_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket_out.bind(('', int(sys.argv[2])))
+    
+    print('Listening on socket_out ...')
+    socket_out.listen(5)
+    conn, addr = socket_out.accept()
+    print('Connected by', addr)
+    
+    while True:
+        data = conn.recv(1024)
+        if not data:
+            break
+        conn.sendall(data)
+    conn.close()    
+    
+    
+    #socket_out.connect(('127.0.0.1', 38001))
+    #socket_out.recvfrom(38001)
+    
     
     
     
