@@ -1,9 +1,9 @@
 import socket
 import sys
+import packet
   
   
 # 7 Test Port Numbers for ctrl-c :  38001 43874 23524 2569 7839 8432 0.1  
-# 2569 2083 2116 2749 2832 2644 0.1
 
 def channel():
     """Takes 7 command line arguments. These are:
@@ -37,16 +37,16 @@ def channel():
          
 
     channel_s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    channel_s_in.bind(("", int(sys.argv[1])))
+    channel_s_in.bind(('', int(sys.argv[1])))
     
     channel_s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    channel_s_out.bind(("", int(sys.argv[2])))
+    channel_s_out.bind(('', int(sys.argv[2])))
 
     channel_r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    channel_r_in.bind(("", int(sys.argv[3])))
+    channel_r_in.bind(('', int(sys.argv[3])))
     
     channel_r_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    channel_r_out.bind(("", int(sys.argv[4])))
+    channel_r_out.bind(('', int(sys.argv[4])))
     
     
     s_in_port = ('localhost', int(sys.argv[5]))
@@ -54,26 +54,22 @@ def channel():
     
     packet_loss_rate = float(sys.argv[7])
    
+   
+   
+   
+   
+    print('Connecting...')
+    
     try:
-        channel_s_out.connect(('127.0.0.1', 7642))
-        channel_r_out.connect(('127.0.0.1', 38764))
+        channel_s_out.connect(('', 7642))
+        channel_r_out.connect(('', 38764))
     except socket.error as socketerror:
             print("Error: ", socketerror)  
             sys.exit(0)
+    
     
     #Enters an infinite loop to perform tasks
     while 1:
         print("yaa")
 
-
-    """
-class Packet(object, maginco, p_type, seqno, dataLen):
-    def __init__(self):
-        self.maginco = maginco
-        self.p_type = p_type
-        self.seqno = seqno
-        self.dataLen = dataLen
-        self.data = data
-
-"""
 channel() 

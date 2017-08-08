@@ -1,7 +1,7 @@
 ccopy_reg
 _reconstructor
 p1
-(c__main__
+(cpacket
 Packet
 p2
 c__builtin__
