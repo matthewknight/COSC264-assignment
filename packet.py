@@ -1,6 +1,6 @@
 class Packet(object):
-    def __init__(self, maginco, p_type, seqno, dataLen, data):
-        self.maginco = maginco
+    def __init__(self, p_type, seqno, dataLen, data):
+        self.magicno = 0x497E
         self.p_type = p_type
         self.seqno = seqno
         self.dataLen = dataLen
