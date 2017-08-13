@@ -1,0 +1,3 @@
+	s_OUT (42068) -> r_IN (42069)
+SENDER					RECEIVER
+	s_IN (42070) <-  r_OUT (42071) 
