@@ -4,6 +4,6 @@ SENDER					RECEIVER
 
 
 
-	s_OUT (42068) -> c_s_IN (42069) -> c_s_OUT (42070) -> r_IN (42071)
-SENDER			            CHANNEL		   		    RECEIVER
-	s_IN (42075)  <- c_OUT (42074)  <- c_r_IN (42073)  <-  r_OUT (42072) 
+	s_OUT (42068) -> | c_s_IN (42069) -> c_s_OUT (42070) | -> r_IN (42071)
+SENDER			 |              CHANNEL		     |	    		RECEIVER
+	 s_IN (42075) <- | c_OUT (42074)  <- c_r_IN (42073)  | <- r_OUT (42072) 
