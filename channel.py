@@ -76,7 +76,7 @@ class Channel(object):
 def main():
     
     
-    receiverServer = Receiver(42071, 42069)
+    receiverServer = Receiver(42069, 42070, 42073, 42074)
     receiverServer.receiveMessage()
     
     trialPacket = Packet(1, 1, 1, "gottem")

@@ -56,7 +56,7 @@ class Sender(object):
         return self.host
     
 def main():
-    senderClient = Sender(42068, 42070)
+    senderClient = Sender(42068, 42075)
     trialPacket = Packet(1, 1, 1, "deeznutz")
     
     senderClient.sendPacket(42069, trialPacket)
