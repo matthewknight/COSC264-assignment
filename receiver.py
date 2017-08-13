@@ -25,27 +25,39 @@ class Receiver(object):
         self.r_IN.bind((host, r_IN_Port))
         print("r_IN successfully initialised/bound")
             
-    def sendMessage(self, destPort, message):
-        return None
+    def sendPacket(self, destPort, packet):
+        r_OUT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        r_OUT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        r_OUT.bind((self.host, self.r_OUT_Port))
+        
+        r_OUT.connect((self.host, destPort))
+        print("Connected to {}".format(destPort))
+        
+        bytestreamToSend = pickle.dumps(packet)
+            
+        print("Sent", repr(packet))
+        r_OUT.send(bytestreamToSend)       
+        
+        r_OUT.close
 
     def receiveMessage(self):
         print("Listening...")
     
         self.r_IN.listen(5)
-        #receivedMessage = False
+        receivedMessage = False
         
-        while True:
-            r_OUT, addr = self.r_IN.accept() 
+        while not receivedMessage:
+            conn, addr = self.r_IN.accept() 
             
             print('Got connection from {}'.format(addr))
             
             #Receives message from sender
-            data = r_OUT.recv(1024)
+            data = conn.recv(1024)
             data = pickle.loads(data)
             if not data:
                 break
-            print("Received; {}\n".format(data))
-            
+            print("Received; Packet payload:{}\n".format(data.getPacketPayload()))
+            receivedMessage = True
             
     
     def getHost(self):
@@ -53,6 +65,9 @@ class Receiver(object):
 
 def main():
     receiverServer = Receiver(42071, 42069)
-    receiverServer.receiveMessage()    
+    receiverServer.receiveMessage()
+    
+    trialPacket = Packet(1, 1, 1, "gottem")
+    receiverServer.sendPacket(42070, trialPacket)
     
 main()

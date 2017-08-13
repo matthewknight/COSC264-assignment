@@ -10,6 +10,7 @@ class Packet(object):
         return self.magicno
     
     def getPacketType(self):
+        #Flag for if connecting packet or final packet (I think??)
         return self.p_type
     
     def getPacketSequence(self):
