@@ -33,7 +33,7 @@ class Channel(object):
         
         
         
-        print("r_IN successfully initialised/bound")
+        print("r_IN_out s_in_out successfully initialised/bound")
             
     def sendPacket(self, destPort, packet):
         r_OUT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -53,11 +53,14 @@ class Channel(object):
     def receiveMessage(self):
         print("Listening...")
     
+        self.s_IN.listen(5)
         self.r_IN.listen(5)
-        receivedMessage = False
         
-        while not receivedMessage:
-            conn, addr = self.r_IN.accept() 
+        receivedMessage_s = False
+        recievedMessage_r = False
+        
+        while not receivedMessage_s:
+            conn, addr = self.s_IN.accept() 
             
             print('Got connection from {}'.format(addr))
             
@@ -76,10 +79,10 @@ class Channel(object):
 def main():
     
     
-    receiverServer = Receiver(42069, 42070, 42073, 42074)
-    receiverServer.receiveMessage()
+    channelServer = Channel(42069, 42070, 42073, 42074)
+    channellServer.receiveMessage()
     
     trialPacket = Packet(1, 1, 1, "gottem")
-    receiverServer.sendPacket(42070, trialPacket)
+    channelServer.sendPacket(42071, trialPacket)
     
 main()
