@@ -3,11 +3,6 @@ import sys
 import pickle
 from packet import Packet
 
-import socket
-import sys
-import pickle
-from packet import Packet
-
 #Server
 class Receiver(object):
     def __init__(self, r_OUT_Port, r_IN_Port):
