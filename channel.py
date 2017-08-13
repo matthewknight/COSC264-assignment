@@ -3,27 +3,36 @@ import sys
 import pickle
 from packet import Packet
 
-#Server
-class Receiver(object):
-    def __init__(self, r_OUT_Port, r_IN_Port):
+
+class Channel(object):
+    def __init__(self, s_IN_Port, r_OUT_Port, r_IN_Port, s_OUT_Port):
+        
         self.host = '127.0.0.1'
         host = self.host
+        self.s_IN_Port = s_IN_Port
         self.r_OUT_Port = r_OUT_Port
+        self.r_IN_Port = r_IN_Port
+        self.s_OUT_Port = s_OUT_Port
+               
         
-        #Check for in range ports
-        if (r_OUT_Port < 1024 or r_OUT_Port > 64000):
-            print("r_OUT port out of range")
-            k=input("Any key to exit")
-            exit()
+        self.s_IN = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s_IN.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.s_IN.bind((host, s_IN_Port))
         
-        if (r_IN_Port < 1024 or r_IN_Port > 64000):
-            print("r_IN port out of range")
-            k=input("Any key to exit")
-            exit()       
-        
+        self.r_OUT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.r_OUT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.r_OUT.bind((host, r_OUT_Port))        
+
         self.r_IN = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.r_IN.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.r_IN.bind((host, r_IN_Port))
+        self.r_IN.bind((host, r_IN_Port))  
+        
+        self.s_IN = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s_IN.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.s_IN.bind((host, s_IN_Port))        
+        
+        
+        
         print("r_IN successfully initialised/bound")
             
     def sendPacket(self, destPort, packet):
