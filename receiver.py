@@ -8,6 +8,7 @@ class Receiver(object):
     def __init__(self, r_OUT_Port, r_IN_Port):
         self.host = socket.gethostname()
         host = self.host
+        self.r_OUT_Port = r_OUT_Port
         
         #Check for in range ports
         if (r_OUT_Port < 1024 or r_OUT_Port > 64000):
@@ -64,6 +65,8 @@ class Receiver(object):
         return self.host
 
 def main():
+    
+    
     receiverServer = Receiver(42071, 42069)
     receiverServer.receiveMessage()
     
