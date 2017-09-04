@@ -1,5 +1,6 @@
 import socket
 import sys
+import time
 import pickle
 from packet import Packet
 
@@ -21,24 +22,35 @@ class Sender(object):
 
         self.s_out.connect((self.host, c_s_in_port))
         print("Sender connected to {}".format(c_s_in_port))
-    
+
     def send_file(self, file_name):
-        next_no = 0
-        exitFlag = False
+        bytes_read = 0
+        bytes_position = 0
+        exit_flag = False
+        sequence_no = 0
 
         try:
-            file_to_send = open(file_name, 'r')
+            file_to_send = open(file_name, 'rb')
         except IOError:
             exit()
 
-        bytestream_file = pickle.dumps(file_to_send.read())
-        print(bytestream_file[:10])
+        while not exit_flag:
+            file_to_send.seek(bytes_position)
+            data_read = file_to_send.read(512)
 
-        packet = Packet(1, 0, next_no, 10, bytestream_file[:10])
-        bytestream_packet = pickle.dumps(packet)
-        self.s_out.send(bytestream_packet)
+            print(bytes_position)
+            if len(data_read) == 0:
+                packet_to_send = Packet(0x497E, 0, bytes_read, 0, None)
+                exit_flag = True
+            else:
+                packet_to_send = Packet(1, 0, sequence_no, len(data_read), data_read)
+                bytes_position += 512
+                sequence_no += 1
 
-
+            bytestream_packet = pickle.dumps(packet_to_send)
+            # print(sequence_no)
+            self.s_out.send(bytestream_packet)
+            time.sleep(0.3)
 
 
 def check_ports(self, *args):

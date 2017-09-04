@@ -11,8 +11,8 @@ class Packet(object):
         self.p_type = p_type
 
         # Sequence value in binary
-        if not all(c in '01' for c in str(seq_no)):
-            raise Exception("Packet non-binary sequence number")
+        # if not all(c in '01' for c in str(seq_no)):
+        #     raise Exception("Packet non-binary sequence number")
         self.seq_no = seq_no
 
         # Data length field, 0 <= x <= 512

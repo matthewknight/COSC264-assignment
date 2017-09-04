@@ -44,21 +44,20 @@ class Channel(object):
         print("Listening for sender...")
     
         self.s_in.listen(5)
-        
+        conn, addr = self.s_in.accept()
+        print('Got connection from {}'.format(addr))
+
         received_message_s = False
 
         while not received_message_s:
-            conn, addr = self.s_in.accept()
-            print('Got connection from {}'.format(addr))
-
             # Receives message from sender
             data = conn.recv(1024)
             data = pickle.loads(data)
-            if not data:
+            if data.get_data_len() == 0:
                 print("No data or empty packet received!")
-                break
+                received_message_s = True
             else:
-                print("Received; Packet payload:{}\n".format(data.get_packet_payload()))
+                print("Received; seqno:{}\n".format(data.get_packet_sequence_no()))
         
     def receive_message_receiver(self):
         conn, addr = self.r_in.accept()
