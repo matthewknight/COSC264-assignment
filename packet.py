@@ -6,12 +6,12 @@ class Packet(object):
         # Packet type must be of dataPacket or acknowledgementPacket
         data_packet = 0
         acknowledgement_packet = 1
-        if p_type != data_packet or p_type != acknowledgement_packet:
+        if p_type != data_packet and p_type != acknowledgement_packet:
             raise Exception("Incorrect packet type")
         self.p_type = p_type
 
         # Sequence value in binary
-        if not all(c in '01' for c in seq_no):
+        if not all(c in '01' for c in str(seq_no)):
             raise Exception("Packet non-binary sequence number")
         self.seq_no = seq_no
 

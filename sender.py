@@ -3,63 +3,52 @@ import sys
 import pickle
 from packet import Packet
 
-#Client
+
 class Sender(object):
-    def __init__(self, s_OUT_Port, s_IN_Port):
+    def __init__(self, s_in_port, s_out_port, c_s_in_port):
         self.host = '127.0.0.1'
-        self.s_OUT_Port = s_OUT_Port
         
-        #Check for in range ports         
+        check_ports(s_in_port, s_out_port, c_s_in_port)
 
-        self.s_IN = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s_IN.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.s_IN.bind((self.host, s_IN_Port))
+        self.s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.s_in.bind((self.host, s_in_port))
 
-               
+        self.s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.s_out.bind((self.host, s_out_port))
+        print("Channel ports successfully initialised/bound")
+
+        self.s_out.connect((self.host, c_s_in_port))
+        print("Sender connected to {}".format(c_s_in_port))
     
-    def sendPacket(self, destPort, packet):
-        s_OUT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s_OUT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s_OUT.bind((self.host, self.s_OUT_Port))
-        
-        s_OUT.connect((self.host, destPort))
-        print("Connected to {}".format(destPort))
-        
-        bytestreamToSend = pickle.dumps(packet)
-            
-        print("Sent", repr(packet))
-        s_OUT.send(bytestreamToSend)       
-        
-        s_OUT.close
-        
-    def receiveMessage(self):
-        print("Listening...")
-    
-        self.s_IN.listen(5)
-        receivedMessage = False
-        
-        while not receivedMessage:
-            conn, addr = self.s_IN.accept() 
-            
-            print('Got connection from {}'.format(addr))
-            
-            #Receives message from sender
-            data = conn.recv(1024)
-            data = pickle.loads(data)
-            if not data:
-                break
-            print("Received; Packet payload:{}\n".format(data.getPacketPayload()))
-            receivedMessage = True
-    
-    
-    def getHost(self):
-        return self.host
-    
+    def send_file(self, file_name):
+        next_no = 0
+        exitFlag = False
+
+        try:
+            file_to_send = open(file_name, 'r')
+        except IOError:
+            exit()
+
+        bytestream_file = pickle.dumps(file_to_send.read())
+        print(bytestream_file[:10])
+
+        packet = Packet(1, 0, next_no, 10, bytestream_file[:10])
+        bytestream_packet = pickle.dumps(packet)
+        self.s_out.send(bytestream_packet)
+
+
+
+
+def check_ports(self, *args):
+    for port in args:
+        if not isinstance(port, int) or port < 1024 or port > 64000:
+            raise Exception("Channel: Invalid port assignments")
+
+
 def main():
-    senderClient = Sender(42068, 42075)
-    trialPacket = Packet(1, 1, 1, "deeznutz")
-    
-    senderClient.sendPacket(42069, trialPacket)
-    senderClient.receiveMessage()
+    sender_client = Sender(42075, 42078, 42069)
+    sender_client.send_file("beefstar.txt")
     
 main()

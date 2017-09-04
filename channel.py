@@ -28,20 +28,17 @@ class Channel(object):
         self.s_in_port = s_in_port
         self.r_in_port = r_in_port
         self.loss_rate = loss_rate
-
         print("Channel ports successfully initialised/bound")
 
     def send_packet(self, destination_port, packet):
-        self.r_out.connect((self.host, destination_port))
+        self.c_r_out.connect((self.host, destination_port))
 
         print("Connected to {}".format(destination_port))
         
         bytestream_to_send = pickle.dumps(packet)
             
         print("Sent", repr(packet))
-        self.r_out.send(bytestream_to_send)
-        
-        self.r_out.close
+        self.c_r_out.send(bytestream_to_send)
 
     def receive_message_sender(self):
         print("Listening for sender...")
@@ -61,9 +58,7 @@ class Channel(object):
                 print("No data or empty packet received!")
                 break
             else:
-                print("Received; Packet payload:{}\n".format(data.getPacketPayload()))
-                received_message_s = True
-                return data
+                print("Received; Packet payload:{}\n".format(data.get_packet_payload()))
         
     def receive_message_receiver(self):
         conn, addr = self.r_in.accept()
@@ -97,9 +92,9 @@ def check_ports(self, *args):
 
 
 def main():
-    channel_server = Channel(42069, 42070, 42074, 42073)
-    data_in = channel_server.receiveMessage()
-    print(data_in)
+    channel_server = Channel(42069, 42070, 42074, 42073, 42075, 42071, 0)
+    channel_server.receive_message_sender()
+
 
     # trialPacket = Packet(1, 1, 1, "gottem")
     # channel_server.send_packet(42071, data)
