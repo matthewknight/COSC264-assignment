@@ -6,21 +6,10 @@ from packet import Packet
 #Client
 class Sender(object):
     def __init__(self, s_OUT_Port, s_IN_Port):
-        self.host = socket.gethostname()
+        self.host = '127.0.0.1'
         self.s_OUT_Port = s_OUT_Port
         
-        #Check for in range ports
-        if (s_OUT_Port < 1024 or s_OUT_Port > 64000):
-            print("s_OUT port out of range\n")
-            k = input("Any key to exit")
-            exit()
-            
-            
-        if (s_IN_Port < 1024 or s_IN_Port > 64000):
-            print("s_IN port out of range\n")
-            k = input("Any key to exit")
-            exit()            
-        
+        #Check for in range ports         
 
         self.s_IN = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s_IN.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -67,7 +56,7 @@ class Sender(object):
         return self.host
     
 def main():
-    senderClient = Sender(42068, 42070)
+    senderClient = Sender(42068, 42075)
     trialPacket = Packet(1, 1, 1, "deeznutz")
     
     senderClient.sendPacket(42069, trialPacket)

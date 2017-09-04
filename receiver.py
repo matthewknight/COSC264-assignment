@@ -5,8 +5,8 @@ from packet import Packet
 
 #Server
 class Receiver(object):
-    def __init__(self, r_OUT_Port, r_IN_Port):
-        self.host = socket.gethostname()
+    def __init__(self, r_IN_Port, r_OUT_Port):
+        self.host = '127.0.0.1'
         host = self.host
         self.r_OUT_Port = r_OUT_Port
         
@@ -67,10 +67,10 @@ class Receiver(object):
 def main():
     
     
-    receiverServer = Receiver(42071, 42069)
-    receiverServer.receiveMessage()
+    receiverServer = Receiver(42071, 42072)
+    data = receiverServer.receiveMessage()
     
     trialPacket = Packet(1, 1, 1, "gottem")
-    receiverServer.sendPacket(42070, trialPacket)
+    receiverServer.sendPacket(42073, data)
     
 main()
