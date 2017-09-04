@@ -68,9 +68,9 @@ def main():
     
     
     receiverServer = Receiver(42071, 42072)
-    receiverServer.receiveMessage()
+    data = receiverServer.receiveMessage()
     
     trialPacket = Packet(1, 1, 1, "gottem")
-    receiverServer.sendPacket(42070, trialPacket)
+    receiverServer.sendPacket(42073, data)
     
 main()

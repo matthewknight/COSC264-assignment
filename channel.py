@@ -50,14 +50,14 @@ class Channel(object):
         
         r_OUT.close
 
-    def receiveMessage(self):
-        print("Listening...")
+
+    def receiveMessageSender(self):
+        print("Listening for sender...")
     
         self.s_IN.listen(5)
-        self.r_IN.listen(5)
         
         receivedMessage_s = False
-        recievedMessage_r = False
+        
         
         while not receivedMessage_s:
             conn, addr = self.s_IN.accept() 
@@ -68,10 +68,36 @@ class Channel(object):
             data = conn.recv(1024)
             data = pickle.loads(data)
             if not data:
+                print("No data or empty packet received!")
                 break
             print("Received; Packet payload:{}\n".format(data.getPacketPayload()))
-            receivedMessage = True
+            receivedMessage_s = True
             
+        
+        
+        return data
+        
+    def receiveMessageReceiver(self):
+        conn, addr = self.r_IN.accept()
+        print("Listening for receiver...")
+        self.r_IN.listen(5)
+        
+        recievedMessage_r = False
+        
+        while not receivedMessage_r:
+            conn_r, addr_r = self.r_IN.accept()
+        
+            print('Got connection from {}'.format(addr))
+            data = conn.recv(1024)
+            data = pickle.loads(data)
+            if not data:
+                print("No data or empty packet received!")
+                break
+            receivedMessage_r = True
+        
+        
+        return data
+        
     
     def getHost(self):
         return self.host
@@ -80,9 +106,12 @@ def main():
     
     
     channelServer = Channel(42069, 42070, 42073, 42074)
-    channellServer.receiveMessage()
+    dataIn = channelServer.receiveMessage()
     
-    trialPacket = Packet(1, 1, 1, "gottem")
-    channelServer.sendPacket(42071, trialPacket)
+   # trialPacket = Packet(1, 1, 1, "gottem")
+    channelServer.sendPacket(42071, data)
+    dataOut = channelServer.receiveMessage()
+    channelServer.sendPacket(42075, data)
     
+
 main()
