@@ -1,5 +1,6 @@
 import socket
 import pickle
+from packet import Packet
 
 
 def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_in_port, loss_rate):
@@ -40,14 +41,22 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
         # Receives message from sender
         data = s_in_connection.recv(1024)
         data = pickle.loads(data)
+        return_no = data.get_packet_sequence_no()
         if data.get_data_len() == 0:
             print("No data or empty packet received!")
             received_message_s = True
         else:
             print("Received; seqno:{}\n".format(data.get_packet_sequence_no()))
+            # Send acknowledgement packet
+
+            acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
+
+            bytestream_packet = pickle.dumps(acknowledgement_packet)
+            s_out.send(bytestream_packet)
 
 
-def check_ports(self, *args):
+
+def check_ports(*args):
     for port in args:
         if not isinstance(port, int) or port < 1024 or port > 64000:
             raise Exception("Channel: Invalid port assignments")

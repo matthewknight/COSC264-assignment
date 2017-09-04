@@ -1,6 +1,6 @@
 class Packet(object):
     def __init__(self, magic_no, p_type, seq_no, data_len, data):
-        # Magic number
+        # Magic number (should be 0x497E)
         self.magic_no = magic_no
 
         # Packet type must be of dataPacket or acknowledgementPacket
@@ -22,6 +22,13 @@ class Packet(object):
 
         # Actual packet payload
         self.data = data
+
+    def __str__(self):
+        return 'Packet: (MagicNo: {} Type: {} Seq No: {} Data Len: {} Payload: {})'.format(self.get_magic_no(),
+                                                                                           self.get_packet_type(),
+                                                                                           self.get_packet_sequence_no(),
+                                                                                           self.get_data_len(),
+                                                                                           self.get_packet_payload())
 
     def get_magic_no(self):
         return self.magic_no

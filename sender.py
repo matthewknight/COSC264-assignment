@@ -32,7 +32,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
     exit_flag = False
     exit_flag2 = False
 
-    sequence_no = 0
+    sequence_no = 1
     bytestream_packets_buffer = []
 
     try:
@@ -49,30 +49,34 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
             packet_to_send = Packet(0x497E, 0, bytes_read, 0, None)
             exit_flag = True
         else:
-            packet_to_send = Packet(1, 0, sequence_no, len(data_read), data_read)
+            packet_to_send = Packet(0x497E, 0, sequence_no, len(data_read), data_read)
             bytes_position += 512
-            sequence_no += 1
+
 
         bytestream_packet = pickle.dumps(packet_to_send)
-        s_out.send(bytestream_packet)
-        time.sleep(0.3)
 
-        # bytestream_packets_buffer.append(bytestream_packet)
+        bytestream_packets_buffer.append(bytestream_packet)
 
-        # while not exit_flag2:
-        #     input = [s_in]
-        #     output = [s_out]
-        #     readable, writable, exceptional = select.select(input, output, input)
-        #     for socket in readable:
-        #
-        #         s_out.send(bytestream_packet)
-        #
-        #     s_in.listen(5)
-        #     conn, addr = s_in.accept()
-        #     print('Got connection from {}'.format(addr))
+        confirmation_received = False
+
+        while not confirmation_received:
+            s_out.send(bytestream_packets_buffer[0])
+            time.sleep(0.3)
+            ready = select.select([s_in_connection], [], [], 1)
+            if ready[0]:
+                data = s_in_connection.recv(1024)
+                data = pickle.loads(data)
+                print(data)
+                print(data.get_packet_sequence_no(), sequence_no)
+                if data.get_packet_sequence_no() == sequence_no:
+                    sequence_no += 1
+                    confirmation_received = True
+
+                else:
+                    print("Packet mismatch, retransmitting")
 
 
-def check_ports( *args):
+def check_ports(*args):
     for port in args:
         if not isinstance(port, int) or port < 1024 or port > 64000:
             raise Exception("Channel: Invalid port assignments")
