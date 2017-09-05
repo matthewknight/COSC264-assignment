@@ -1,104 +1,70 @@
 import socket
 import pickle
+from packet import Packet
 
 
-class Channel(object):
-    def __init__(self, c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_in_port, loss_rate):
-        self.host = '127.0.0.1'
-        host = self.host
+def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_in_port, loss_rate):
+    host = '127.0.0.1'
 
-        check_ports(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_in_port)
-        
-        self.s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.s_in.bind((host, c_s_in_port))
+    check_ports(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_in_port)
 
-        self.s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.s_out.bind((host, c_s_in_port))
+    s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s_in.bind((host, c_s_in_port))
 
-        self.r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.r_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.r_in.bind((host, c_r_in_port))
+    s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s_out.bind((host, c_s_in_port))
 
-        self.r_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.r_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.r_out.bind((host, c_r_out_port))
+    r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    r_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    r_in.bind((host, c_r_in_port))
 
-        self.s_in_port = s_in_port
-        self.r_in_port = r_in_port
-        self.loss_rate = loss_rate
-        print("Channel ports successfully initialised/bound")
+    r_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    r_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    r_out.bind((host, c_r_out_port))
 
-    def send_packet(self, destination_port, packet):
-        self.c_r_out.connect((self.host, destination_port))
+    print("Channel ports successfully initialised/bound")
 
-        print("Connected to {}".format(destination_port))
-        
-        bytestream_to_send = pickle.dumps(packet)
-            
-        print("Sent", repr(packet))
-        self.c_r_out.send(bytestream_to_send)
+    print("Listening for sender...")
 
-    def receive_message_sender(self):
-        print("Listening for sender...")
-    
-        self.s_in.listen(5)
-        conn, addr = self.s_in.accept()
-        print('Got connection from {}'.format(addr))
+    s_in.listen(5)
+    s_in_connection, s_in_conn_address = s_in.accept()
+    print('Got connection from {}'.format(s_in_conn_address))
 
-        received_message_s = False
+    s_out.connect((host, s_in_port))
+    print("Channel connected to {}".format(c_s_in_port))
 
-        while not received_message_s:
-            # Receives message from sender
-            data = conn.recv(1024)
-            data = pickle.loads(data)
-            if data.get_data_len() == 0:
-                print("No data or empty packet received!")
-                received_message_s = True
-            else:
-                print("Received; seqno:{}\n".format(data.get_packet_sequence_no()))
-        
-    def receive_message_receiver(self):
-        conn, addr = self.r_in.accept()
-        print("Listening for receiver...")
-        self.r_in.listen(5)
-        
-        received_message_r = False
-        
-        while not received_message_r:
-            conn_r, addr_r = self.r_in.accept()
-        
-            print('Got connection from {}'.format(addr))
-            data = conn.recv(1024)
-            data = pickle.loads(data)
-            if not data:
-                print("No data or empty packet received!")
-                break
-            else:
-                print("Received; Packet payload:{}\n".format(data.getPacketPayload()))
-                received_message_r = True
-                return data
+    received_message_s = False
 
-    def get_host(self):
-        return self.host
+    while not received_message_s:
+        # Receives message from sender
+        data = s_in_connection.recv(1024)
+        data = pickle.loads(data)
+        return_no = data.get_packet_sequence_no()
+        if data.get_data_len() == 0:
+            print("No data or empty packet received!")
+            received_message_s = True
+        else:
+            print("Received; seqno:{}\n".format(data.get_packet_sequence_no()))
+            # Send acknowledgement packet
+
+            acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
+
+            bytestream_packet = pickle.dumps(acknowledgement_packet)
+            s_out.send(bytestream_packet)
 
 
-def check_ports(self, *args):
+
+def check_ports(*args):
     for port in args:
         if not isinstance(port, int) or port < 1024 or port > 64000:
             raise Exception("Channel: Invalid port assignments")
 
 
 def main():
-    channel_server = Channel(42069, 42070, 42074, 42073, 42075, 42071, 0)
-    channel_server.receive_message_sender()
+    channel(42069, 42070, 42074, 42073, 42075, 42071, 0)
 
-
-    # trialPacket = Packet(1, 1, 1, "gottem")
-    # channel_server.send_packet(42071, data)
-    # dataOut = channel_server.receiveMessage()
-    # channel_server.send_packet(42075, data)
     
 
 main()
