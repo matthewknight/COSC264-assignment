@@ -61,7 +61,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
         while not confirmation_received:
             s_out.send(bytestream_packets_buffer[0])
-            time.sleep(0.3)
+            #time.sleep(0.01)
             ready = select.select([s_in_connection], [], [], 1)
             if ready[0]:
                 data = s_in_connection.recv(1024)
@@ -70,6 +70,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
                 print(data.get_packet_sequence_no(), sequence_no)
                 if data.get_packet_sequence_no() == sequence_no:
                     sequence_no += 1
+                    bytestream_packets_buffer.pop(0)
                     confirmation_received = True
 
                 else:
@@ -83,6 +84,6 @@ def check_ports(*args):
 
 
 def main():
-    sender(42075, 42068, 42069, "beefstar.txt")
+    sender(42075, 42068, 42069, "access.log")
     
 main()

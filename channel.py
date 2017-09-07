@@ -14,7 +14,7 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
 
     s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s_out.bind((host, c_s_in_port))
+    s_out.bind((host, c_s_out_port))
 
     r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     r_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -34,6 +34,15 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
 
     s_out.connect((host, s_in_port))
     print("Channel connected to {}".format(c_s_in_port))
+    
+    r_in.listen(5)
+    
+    print("Listening for receiver...")
+    r_in_connection, r_in_conn_address = r_in.accept()
+    print('Got connection from {}'.format(r_in_conn_address))
+    
+    r_out.connect((host, r_in_port))
+    
 
     received_message_s = False
 
@@ -63,7 +72,7 @@ def check_ports(*args):
 
 
 def main():
-    channel(42069, 42070, 42074, 42073, 42075, 42071, 0)
+    channel(42069, 42070, 42073, 42074, 42075, 42071, 0)
 
     
 
