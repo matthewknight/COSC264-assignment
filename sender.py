@@ -61,7 +61,8 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
         while not confirmation_received:
             s_out.send(bytestream_packets_buffer[0])
-            #time.sleep(0.01)
+            print("Ready to send packet")
+           
             ready = select.select([s_in_connection], [], [], 1)
             if ready[0]:
                 data = s_in_connection.recv(1024)

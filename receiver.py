@@ -1,11 +1,12 @@
 import socket
 import pickle
+import select
 from packet import Packet
 
 
 def receiver(r_in_port, r_out_port, c_r_in, filename):
     
-    file_to_write = open(filename, 'w+')
+    file_to_write = open(filename, 'a+')
     
     host = '127.0.0.1'
 
@@ -21,9 +22,6 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
 
     print("Receiver ports successfully initialised/bound")
 
-    
-   
-    
     r_out.connect((host, c_r_in))
     print("Receiver connected to channel:{}".format(c_r_in))
 
@@ -35,25 +33,28 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
     
 
     
-
+    
     received_message_c = False
 
     while not received_message_c:
-        # Receives message from sender
-        data = r_in_connection.recv(1024)
-        data = pickle.loads(data)
-        return_no = data.get_packet_sequence_no()
-        if data.get_data_len() == 0:
-            print("No data or empty packet received!")
-            received_message_c = True
-        else:
-            print("Received; seqno:{}\n".format(data.get_packet_sequence_no()))
-            # Send acknowledgement packet
-
-            acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
-
-            bytestream_packet = pickle.dumps(acknowledgement_packet)
-            r_out.send(bytestream_packet)
+        ready = select.select([r_in_connection], [], [])
+        if ready[0]:
+            # Receives message from sender
+            print("Packet received")
+            data = r_in_connection.recv(1024)
+            data = pickle.loads(data)
+            return_no = data.get_packet_sequence_no()
+            if data.get_data_len() == 0:
+                print("No data or empty packet received!")
+                received_message_c = True
+            else:
+                print("Received; seqno:{}\n".format(data))
+                # Send acknowledgement packet
+                file_to_write.write(data.get_packet_payload())
+                acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
+    
+                bytestream_packet = pickle.dumps(acknowledgement_packet)
+                r_out.send(bytestream_packet)
 
 
 

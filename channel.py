@@ -1,5 +1,6 @@
 import socket
 import pickle
+import select
 from packet import Packet
 
 
@@ -26,43 +27,40 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
 
     print("Channel ports successfully initialised/bound")
 
-    print("Listening for sender...")
-
     s_in.listen(5)
+    print("Listening for sender...")
     s_in_connection, s_in_conn_address = s_in.accept()
-    print('Got connection from {}'.format(s_in_conn_address))
+    print('Got connection from sender: {}'.format(s_in_conn_address))
 
     s_out.connect((host, s_in_port))
     print("Channel connected to {}".format(c_s_in_port))
     
     r_in.listen(5)
-    
     print("Listening for receiver...")
     r_in_connection, r_in_conn_address = r_in.accept()
-    print('Got connection from {}'.format(r_in_conn_address))
+    print('Got connection from receiver: {}'.format(r_in_conn_address))
     
     r_out.connect((host, r_in_port))
-    
+    print("Connected to receiver")
 
     received_message_s = False
 
-    while not received_message_s:
-        # Receives message from sender
-        data = s_in_connection.recv(1024)
-        data = pickle.loads(data)
-        return_no = data.get_packet_sequence_no()
-        if data.get_data_len() == 0:
-            print("No data or empty packet received!")
-            received_message_s = True
-        else:
-            print("Received; seqno:{}\n".format(data.get_packet_sequence_no()))
-            # Send acknowledgement packet
-
-            acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
-
-            bytestream_packet = pickle.dumps(acknowledgement_packet)
-            s_out.send(bytestream_packet)
-
+    while True:
+        
+        ready = select.select([s_in_connection, r_in_connection], [], [], 1);
+        
+        if ready[0]:
+            if ready[0][0] is s_in_connection:
+                #ADD THE ERROR
+                #Send to receiver
+                packet_to_fwd = s_in_connection.recv(1024)
+                r_out.send(packet_to_fwd)
+               
+            elif ready[0][0] is r_in_connection:
+                #reciever send ackn to sender
+                packet_to_fwd = r_in_connection.recv(1024)
+                s_out.send(packet_to_fwd)
+            
 
 
 def check_ports(*args):
