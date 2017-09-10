@@ -1,0 +1,94 @@
+217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20line1
+line2
+line3
+line4
+line5
+line1
+line2
+line3
+line4
+line5
+line1
+line2
+line3
+line4
+line5
+217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 200 9853 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:30:22 +1200] "GET /calendar/view.php?view=month&course=1&time=122527681200 HTTP/1.1" 200 9845 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:30:24 +1200] "GET /calendar/view.php?view=month&course=1&time=-121384006200 HTTP/1.1" 200 9822 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+132.181.16.99 - - [11/Aug/2017:06:33:24 +1200] "GET / HTTP/1.0" 200 35308 "-" "check_http/v2.2.1 (nagios-plugins 2.2.1)"
+66.249.79.38 - - [11/Aug/2017:06:34:18 +1200] "POST /lib/ajax/service.php?sesskey=0Q4At9DwWI HTTP/1.1" 200 614 "http://coderunner.org.nz/calendar/view.php?view=month&course=1&time=120476458800" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.40 - - [11/Aug/2017:06:35:16 +1200] "GET /calendar/view.php?view=month&course=1&time=-121386598200 HTTP/1.1" 200 9801 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+108.41.234.226 - - [11/Aug/2017:06:36:16 +1200] "GET /mod/forum/discuss.php?d=20 HTTP/1.1" 200 15345 "https://www.google.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css HTTP/1.1" 200 1536 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /lib/javascript.php/1499902978/lib/javascript-static.js HTTP/1.1" 200 9274 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js&rollup/1499902978/mcore-min.js HTTP/1.1" 200 89374 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/styles.php/clean/1499902978/all HTTP/1.1" 200 108235 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /lib/javascript.php/1499902978/lib/requirejs/require.min.js HTTP/1.1" 200 7066 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/javascript.php/clean/1499902978/footer HTTP/1.1" 200 1075 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/core/1499902978/help HTTP/1.1" 200 1157 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/core/1499902978/u/f2 217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 200 9853 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:30:22 +1200] "GET /calendar/view.php?view=month&course=1&time=122527681200 HTTP/1.1" 200 9845 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:30:24 +1200] "GET /calendar/view.php?view=month&course=1&time=-121384006200 HTTP/1.1" 200 9822 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+132.181.16.99 - - [11/Aug/2017:06:33:24 +1200] "GET / HTTP/1.0" 200 35308 "-" "check_http/v2.2.1 (nagios-plugins 2.2.1)"
+66.249.79.38 - - [11/Aug/2017:06:34:18 +1200] "POST /lib/ajax/service.php?sesskey=0Q4At9DwWI HTTP/1.1" 200 614 "http://coderunner.org.nz/calendar/view.php?view=month&course=1&time=120476458800" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.40 - - [11/Aug/2017:06:35:16 +1200] "GET /calendar/view.php?view=month&course=1&time=-121386598200 HTTP/1.1" 200 9801 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+108.41.234.226 - - [11/Aug/2017:06:36:16 +1200] "GET /mod/forum/discuss.php?d=20 HTTP/1.1" 200 15345 "https://www.google.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css HTTP/1.1" 200 1536 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /lib/javascript.php/1499902978/lib/javascript-static.js HTTP/1.1" 200 9274 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js&rollup/1499902978/mcore-min.js HTTP/1.1" 200 89374 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/styles.php/clean/1499902978/all HTTP/1.1" 200 108235 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /lib/javascript.php/1499902978/lib/requirejs/require.min.js HTTP/1.1" 200 7066 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/javascript.php/clean/1499902978/footer HTTP/1.1" 200 1075 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/core/1499902978/help HTTP/1.1" 200 1157 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/core/1499902978/u/f2 HTTP/1.1" 200 797 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /pluginfile.php/1564/mod_forum/post/57/sample.png HTTP/1.1" 200 118109 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /pluginfile.php/1564/mod_forum/post/58/Selection_067.png HTTP/1.1" 200 61548 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/book/1499902978/icon HTTP/1.1" 200 2871 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/core/1499902978/t/expanded HTTP/1.1" 200 860 "http://coderunner.org.nz/theme/styles.php/clean/1499902978/all" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/url/1499902978/icon HTTP/1.1" 200 13871 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:18 +1200] "GET /theme/image.php/clean/forum/1499902978/icon HTTP/1.1" 200 2865 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:19 +1200] "GET /theme/image.php/clean/core/1499902978/f/pdf-24 HTTP/1.1" 200 1782 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:19 +1200] "GET /theme/image.php/clean/page/1499902978/icon HTTP/1.1" 200 4261 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:19 +1200] "GET /theme/image.php/clean/core/1499902978/t/block_to_dock HTTP/1.1" 200 1068 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:19 +1200] "GET /theme/image.php/clean/core/1499902978/i/navigationitem HTTP/1.1" 200 870 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:19 +1200] "GET /theme/image.php/clean/core/1499902978/f/markup HTTP/1.1" 200 1038 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+108.41.234.226 - - [11/Aug/2017:06:36:19 +1200] "GET /theme/image.php/clean/core/1499902978/f/pdf217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20line1
+line2
+line3
+line4
+line5
+line1
+line2
+line3
+line4
+line5
+217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
+66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 20
