@@ -1,7 +1,6 @@
 import socket
 import pickle
 import select
-import random
 from packet import Packet
 
 
@@ -45,44 +44,17 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
     print("Connected to receiver")
 
     received_message_s = False
-    
+
     while True:
-        error_added = False
+        
         ready = select.select([s_in_connection, r_in_connection], [], [], 1);
         
         if ready[0]:
-            if ready[0][0] is s_in_connection:                
-                packet_to_fwd = s_in_connection.recv(1024)
-                
-                #STILL HAVENT ADDED CHECKING STATIC HEADER FIELD                
-                
-
-
-                #ADD THE PACKET LOSS ERROR
-                rand_num_u = random.uniform(0, 1)
-                if rand_num_u < loss_rate:
-                    print("packet lost, retransmitting")
-                    break
-                
-                
-                #Add the bit error error
-                
-                rand_num_v = random.uniform(0, 1)                
-                if rand_num_v < 0.1:
-                    #unpickle, change, pickle
-                    unpickle_error = pickle.loads(packet_to_fwd)
-                    unpickle_error.set_data_len(random.randint(1, 10))
-                    
-                    #pickle it up again
-                    bytestream_packet = pickle.dumps(packet_to_send)
-                    bytestream_packets_buffer = []
-                    bytestream_packets_buffer.append(bytestream_packet)
-                    error_added = True
-                    r_out.send(bytestream_packets_buffer[0])
-                
+            if ready[0][0] is s_in_connection:
+                #ADD THE ERROR
                 #Send to receiver
-                if not error_added:
-                    r_out.send(packet_to_fwd)
+                packet_to_fwd = s_in_connection.recv(1024)
+                r_out.send(packet_to_fwd)
                
             elif ready[0][0] is r_in_connection:
                 #reciever send ackn to sender

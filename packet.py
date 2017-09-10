@@ -42,9 +42,6 @@ class Packet(object):
 
     def get_data_len(self):
         return self.data_len
-    
-    def set_data_len(self, val):
-        self.data_len += val
 
     def get_packet_payload(self):
         return self.data

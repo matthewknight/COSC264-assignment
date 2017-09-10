@@ -66,9 +66,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
             ready = select.select([s_in_connection], [], [], 1)
             if ready[0]:
                 data = s_in_connection.recv(1024)
-                
                 data = pickle.loads(data)
-                
                 print(data)
                 print(data.get_packet_sequence_no(), sequence_no)
                 if data.get_packet_sequence_no() == sequence_no:
