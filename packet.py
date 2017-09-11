@@ -39,6 +39,9 @@ class Packet(object):
 
     def get_packet_sequence_no(self):
         return self.seq_no
+    
+    def set_data_len(self, val):
+        self.data_len += val    
 
     def get_data_len(self):
         return self.data_len

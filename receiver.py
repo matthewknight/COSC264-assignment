@@ -6,7 +6,7 @@ from packet import Packet
 
 def receiver(r_in_port, r_out_port, c_r_in, filename):
     
-    file_to_write = open(filename, 'a+')
+    file_to_write = open(filename, 'a+b')
     
     host = '127.0.0.1'
 
