@@ -63,11 +63,10 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
                     break
                                  
                                  
-                #Add the bit error error
-                                 
+                #Add the bit error error         
                 rand_num_v = random.uniform(0, 1)                
                 if rand_num_v < 0.1:
-                                     #unpickle, change, pickle
+                    #unpickle, change, pickle
                     unpickle_error = pickle.loads(packet_to_fwd)
                     unpickle_error.set_data_len(random.randint(1, 10))
                                      
@@ -91,9 +90,34 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
             elif ready[0][0] is r_in_connection:
                 #reciever send ackn to sender
                 packet_to_fwd = r_in_connection.recv(1024)
-                s_out.send(packet_to_fwd)
+                rand_num_u = random.uniform(0, 1)
+                if rand_num_u < loss_rate:
+                    print("packet lost, retransmitting")
+                    break
+                                 
+                                 
+                #Add the bit error error
+                                 
+                rand_num_v = random.uniform(0, 1)                
+                if rand_num_v < 0.1:
+                    #unpickle, change, pickle
+                    unpickle_error = pickle.loads(packet_to_fwd)
+                    unpickle_error.set_data_len(random.randint(1, 10))
+                                     
+                    #pickle it up again
+                    bytestream_packet = pickle.dumps(unpickle_error)
+                    bytestream_packets_buffer = []
+                    bytestream_packets_buffer.append(bytestream_packet)
+                    error_added = True
+                    r_out.send(bytestream_packets_buffer[0])
+                    
+                if not error_added:
+                    s_out.send(packet_to_fwd)
             
-
+    s_in.close()
+    s_out.close()
+    r_in.close()
+    r_out.close()
 
 def check_ports(*args):
     for port in args:

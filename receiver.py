@@ -51,11 +51,14 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
                 print("Received; seqno:{}\n".format(data))
                 # Send acknowledgement packet
                 file_to_write.write(data.get_packet_payload())
-                acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
-    
-                bytestream_packet = pickle.dumps(acknowledgement_packet)
-                r_out.send(bytestream_packet)
+            acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
 
+            bytestream_packet = pickle.dumps(acknowledgement_packet)
+            r_out.send(bytestream_packet)
+
+    
+    r_in.close()
+    r_out.close()
 
 
 def check_ports(*args):

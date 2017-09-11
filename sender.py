@@ -46,8 +46,10 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
         print(bytes_position)
         if len(data_read) == 0:
-            packet_to_send = Packet(0x497E, 0, bytes_read, 0, None)
+            sequence_no = 0
+            packet_to_send = Packet(0x497E, 0, sequence_no, 0, None)
             exit_flag = True
+            
         else:
             packet_to_send = Packet(0x497E, 0, sequence_no, len(data_read), data_read)
             bytes_position += 512
@@ -77,6 +79,8 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
                 else:
                     print("Packet mismatch, retransmitting")
 
+    s_in.close()
+    s_out.close()
 
 def check_ports(*args):
     for port in args:
