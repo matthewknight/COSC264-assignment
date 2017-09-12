@@ -3,10 +3,10 @@ import time
 import pickle
 import select
 from packet import Packet
-
+import socket
 
 def sender(s_in_port, s_out_port, c_s_in_port, file_name):
-    import socket
+    
     host = '127.0.0.1'
 
     check_ports(s_in_port, s_out_port, c_s_in_port)
@@ -81,6 +81,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
     s_in.close()
     s_out.close()
+    print("Sender addresses closed")
 
 def check_ports(*args):
     for port in args:
