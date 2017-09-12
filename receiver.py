@@ -1,5 +1,6 @@
 import socket
 import pickle
+import os
 import select
 from packet import Packet
 
@@ -62,7 +63,8 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
     
     r_in.close()
     r_out.close()
-
+    print("Receiver addresses closed")
+    
 
 def check_ports(*args):
     for port in args:
@@ -71,6 +73,14 @@ def check_ports(*args):
 
 
 def main():
+    
+    
+    #Change this to sys.argv[4] or whatever one it is
+    try:
+        os.remove("outputfile.txt")
+    except OSError:
+        pass
+    
     receiver(42071, 42072, 42073, "outputfile.txt")
 
     
