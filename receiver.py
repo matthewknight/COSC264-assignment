@@ -47,6 +47,9 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
             if data.get_data_len() == 0:
                 print("No data or empty packet received!")
                 received_message_c = True
+            elif data.get_packet_payload() == None:
+                print("All data recieved, exiting")
+                recieved_message_c = True
             else:
                 print("Received; seqno:{}\n".format(data))
                 # Send acknowledgement packet

@@ -66,6 +66,7 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
                 #Add the bit error error         
                 rand_num_v = random.uniform(0, 1)                
                 if rand_num_v < 0.1:
+                    print("adding bit error")
                     #unpickle, change, pickle
                     unpickle_error = pickle.loads(packet_to_fwd)
                     unpickle_error.set_data_len(random.randint(1, 10))
