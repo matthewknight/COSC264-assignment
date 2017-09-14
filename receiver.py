@@ -1,10 +1,18 @@
 import socket
 import pickle
 import select
+import os
+import sys
 from packet import Packet
 
 
 def receiver(r_in_port, r_out_port, c_r_in, filename):
+    
+    
+    try:
+        os.remove(filename)
+    except OSError:
+        pass    
     
     file_to_write = open(filename, 'a+b')
     
@@ -71,8 +79,15 @@ def check_ports(*args):
 
 
 def main():
-    receiver(42071, 42072, 42073, "outputfile.txt")
 
+    if len(sys.argv) != 5:
+        print("Usage: receiver.py <r_in_port> <r_out_port> <c_r_in> <outputfile>")
+        exit()
+    
+    check_ports(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+        
+    
+    receiver(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])    
     
 
 main()

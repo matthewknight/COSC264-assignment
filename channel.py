@@ -1,6 +1,7 @@
 import socket
 import pickle
 import select
+import sys
 import random
 from packet import Packet
 
@@ -60,7 +61,7 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
                 rand_num_u = random.uniform(0, 1)
                 if rand_num_u < loss_rate:
                     print("packet lost, retransmitting")
-                    break
+                    continue
                                  
                                  
                 #Add the bit error error         
@@ -127,8 +128,17 @@ def check_ports(*args):
 
 
 def main():
-    channel(42069, 42070, 42073, 42074, 42075, 42071, 0)
+    if len(sys.argv) != 8:
+        print("Usage: channel.py <c_s_in_port> <c_s_out_port> <c_r_in_port> <c_r_out_port> <s_in_port> <r_in_port> <loss_rate>")
+        exit()
 
+    check_ports(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
+    
+    # Check loss rate
+    if float(sys.argv[7]) > 1.0 or float(sys.argv[7]) < 0.0:
+        raise Exception("Channel: Loss rate invalid (Must be 0 < P < 1)")
+    channel(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), float(sys.argv[7]))
+    
     
 
 main()

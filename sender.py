@@ -2,11 +2,12 @@ import sys
 import time
 import pickle
 import select
+import socket
 from packet import Packet
 
 
 def sender(s_in_port, s_out_port, c_s_in_port, file_name):
-    import socket
+    
     host = '127.0.0.1'
 
     check_ports(s_in_port, s_out_port, c_s_in_port)
@@ -89,6 +90,15 @@ def check_ports(*args):
 
 
 def main():
-    sender(42075, 42068, 42069, "access.log")
+
+    
+    if len(sys.argv) != 5:
+        print("Usage: sender.py <s_in_port> <s_out_port> <c_s_in_port> <inputfile>")
+        exit()
+    
+    check_ports(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+        
+    
+    sender(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])    
     
 main()
