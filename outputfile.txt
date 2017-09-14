@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 217.182.132.155 - - [11/Aug/2017:06:26:07 +1200] "GET /mod/book/view.php?id=50&chapterid=599 HTTP/1.1" 200 9727 "-" "Mozilla/5.0 (compatible; AhrefsBot/5.2; +http://ahrefs.com/robot/)"
 66.249.79.40 - - [11/Aug/2017:06:26:53 +1200] "GET /calendar/view.php?view=month&course=1&time=122525089200 HTTP/1.1" 200 9829 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 66.249.79.38 - - [11/Aug/2017:06:28:35 +1200] "GET /calendar/view.php?view=month&time=-121381327800&course=1 HTTP/1.1" 200 9853 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
@@ -8,3 +9,5 @@
 66.249.79.40 - - [11/Aug/2017:06:35:16 +1200] "GET /calendar/view.php?view=month&course=1&time=-121386598200 HTTP/1.1" 200 9801 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 108.41.234.226 - - [11/Aug/2017:06:36:16 +1200] "GET /mod/forum/discuss.php?d=20 HTTP/1.1" 200 15345 "https://www.google.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
 108.41.234.226 - - [11/Aug/2017:06:36:17 +1200] "GET /theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css HTTP/1.1" 200 1536 "http://coderunner.org.nz/mod/forum/discuss.php?d=20" "Moz
+=======
+>>>>>>> 0ce192730be9360be3ba02802fb4146cbf3a6902

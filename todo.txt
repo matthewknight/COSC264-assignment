@@ -1,0 +1,14 @@
+TODO
+
+- Command line arguments
+- Hashing of bit errors to fix special task - add item to Packet class
+- 5 questions
+- Change how we print channel
+
+- Receiver 
+	- init local variable expected to 0
+	- receiver magic number check, typified check, seqno diff to 		expected(page 6)
+- Sender
+	- Check if file exists
+	- next? like expected variable above 
+	- ??maybe count how many packets were sent and display at the end
