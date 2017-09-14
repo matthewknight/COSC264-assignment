@@ -81,8 +81,7 @@ def check_ports(*args):
 
 
 def main():
-<<<<<<< HEAD
-=======
+
     
     
     #Change this to sys.argv[4] or whatever one it is
@@ -91,8 +90,6 @@ def main():
     except OSError:
         pass
     
-    receiver(42071, 42072, 42073, "outputfile.txt")
->>>>>>> 0ce192730be9360be3ba02802fb4146cbf3a6902
 
     if len(sys.argv) != 5:
         print("Usage: receiver.py <r_in_port> <r_out_port> <c_r_in> <outputfile>")

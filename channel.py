@@ -1,11 +1,8 @@
 import socket
 import pickle
 import select
-<<<<<<< HEAD
 import sys
-=======
 import time
->>>>>>> 0ce192730be9360be3ba02802fb4146cbf3a6902
 import random
 import sys
 from packet import Packet
@@ -174,12 +171,6 @@ def main():
     if float(sys.argv[7]) > 1.0 or float(sys.argv[7]) < 0.0:
         raise Exception("Channel: Loss rate invalid (Must be 0 < P < 1)")
     channel(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), float(sys.argv[7]))
-    
-<<<<<<< HEAD
-=======
-    
-    
->>>>>>> 0ce192730be9360be3ba02802fb4146cbf3a6902
     
 
 main()
