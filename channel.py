@@ -1,5 +1,6 @@
 import socket
 import pickle
+import jsonpickle
 import select
 import sys
 import time
@@ -53,100 +54,92 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
         error_added = False
         ready = select.select([s_in_connection, r_in_connection], [], [], 1);
         
-        
-        
         if ready[0]:
+            # Packet received from s_in. Forward to r_out.
             if ready[0][0] is s_in_connection:
-                #ADD THE ERROR
                 
-                
+                # Receive the pakcet & unpickle
                 packet_to_fwd = s_in_connection.recv(1024)
-                unpickle_error = pickle.loads(packet_to_fwd)
-                # If last packet recveived
+                unpickled_packet_to_fwd = Packet.bytes_to_packet(packet_to_fwd)
                 
-                #check magicno
-                if unpickle_error.get_magic_no() != 0x497E:
+                # Print out details
+                print('Sender -> Receiver; Type {}'.format(unpickled_packet_to_fwd.get_packet_type()))
+                
+                # Check magicNo
+                if unpickled_packet_to_fwd.get_magic_no() != 0x497E:
                     continue
-                
-                if unpickle_error.get_packet_sequence_no() == 0:
-                    final_packet = True
-                    print("Last packet received, terminating channel")
                     
-                #ADD THE PACKET LOSS ERROR
+                # Chance to drop packet (from loss_rate)
                 rand_num_u = random.uniform(0, 1)
                 if rand_num_u < loss_rate:
-                    print("packet lost, retransmitting")
+                    # Drop the packet and do not forward
+                    print("    Packet lost, retransmitting")
                     continue
                                  
                                  
-                #Add the bit error error         
+                # Add the bit error error         
                 rand_num_v = random.uniform(0, 1)                
                 if rand_num_v < 0.1:
-                    print("adding bit error")
-                    #unpickle, change, pickle
                     
-                    unpickle_error.set_data_len(random.randint(1, 10))
+                    #unpickle, change, pickle
+                    data_len_increment = random.randint(1, 10)
+                    current_data_len = unpickled_packet_to_fwd.get_data_len()
+                    unpickled_packet_to_fwd.set_data_len(current_data_len + data_len_increment)
+                    print("    Adding bit error of {}".format(data_len_increment))
                                      
-                    #pickle it up again
-                    bytestream_packet = pickle.dumps(unpickle_error)
-                    bytestream_packets_buffer = []
-                    bytestream_packets_buffer.append(bytestream_packet)
-                    error_added = True
-                    r_out.send(bytestream_packets_buffer[0])
+                # Pickle it up again
+                bytestream_packet = Packet.packet_to_bytes(unpickled_packet_to_fwd)
+                bytestream_packets_buffer = []
+                bytestream_packets_buffer.append(bytestream_packet)
+                error_added = True
+                r_out.send(bytestream_packets_buffer[0])
                                  
-                #Send to receiver
-                if not error_added:
-                    r_out.send(packet_to_fwd)                
-                
-                
-                
-                
-                #Send to receiver
                 
                
             elif ready[0][0] is r_in_connection:
                 
+                # Receive the pakcet & unpickle
                 packet_to_fwd = r_in_connection.recv(1024)
-                unpickle_error = pickle.loads(packet_to_fwd)
-                # If last packet recveived
+                unpickled_packet_to_fwd = Packet.bytes_to_packet(packet_to_fwd)
                 
-                #check magicno
-                if unpickle_error.get_magic_no() != 0x497E:
+                # Print out details
+                print('Sender <- Receiver; Type {}'.format(unpickled_packet_to_fwd.get_packet_type()))
+                      
+                # Check magicNo
+                if unpickled_packet_to_fwd.get_magic_no() != 0x497E:
                     continue
                 
-                if unpickle_error.get_packet_sequence_no() == 0:
-                    final_packet = True
-                    print("Last packet received, terminating channel")
+                # If last packet recveived
+                if unpickled_packet_to_fwd.get_packet_sequence_no() == 0:
+                    print("    Last packet received, terminating channel")
+                    break
                     
-                #ADD THE PACKET LOSS ERROR
+                # Chance to drop packet (from loss_rate)
                 rand_num_u = random.uniform(0, 1)
                 if rand_num_u < loss_rate:
-                    print("packet lost, retransmitting")
+                    # Drop the packet and do not forward
+                    print("    Packet lost, retransmitting")
                     continue
                                  
                                  
-                #Add the bit error error         
+                # Add the bit error error         
                 rand_num_v = random.uniform(0, 1)                
                 if rand_num_v < 0.1:
-                    print("adding bit error")
-                    #unpickle, change, pickle
                     
-                    unpickle_error.set_data_len(random.randint(1, 10))
+                    #unpickle, change, pickle
+                    data_len_increment = random.randint(1, 10)
+                    current_data_len = unpickled_packet_to_fwd.get_data_len()
+                    unpickled_packet_to_fwd.set_data_len(current_data_len + data_len_increment)
+                    print("    Adding bit error of {}".format(data_len_increment))
                                      
-                    #pickle it up again
-                    bytestream_packet = pickle.dumps(unpickle_error)
-                    bytestream_packets_buffer = []
-                    bytestream_packets_buffer.append(bytestream_packet)
-                    error_added = True
-                    s_out.send(bytestream_packets_buffer[0])
-                    if final_packet:
-                        break                          
-                #Send to receiver
-                if not error_added:
-                    s_out.send(packet_to_fwd)
-                    if final_packet:
-                        break
-            
+                # Pickle it up again
+                bytestream_packet = Packet.packet_to_bytes(unpickled_packet_to_fwd)
+                bytestream_packets_buffer = []
+                bytestream_packets_buffer.append(bytestream_packet)
+                error_added = True
+                s_out.send(bytestream_packets_buffer[0])  
+                
+                
     s_in.close()
     s_out.close()
     r_in.close()

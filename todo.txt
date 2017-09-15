@@ -1,7 +1,7 @@
 TODO
 
-- Command line arguments
-- Hashing of bit errors to fix special task - add item to Packet class
+- Command line arguments DONE
+- Hashing of bit errors to fix  task - add item to Packet class
 - 5 questions
 - Change how we print channel
 

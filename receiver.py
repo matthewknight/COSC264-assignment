@@ -1,5 +1,4 @@
 import socket
-import pickle
 import os
 import select
 import os
@@ -51,7 +50,9 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
             # Receives message from sender
             print("Packet received")
             data = r_in_connection.recv(1024)
-            data = pickle.loads(data)
+            print(data)
+            data = Packet.bytes_to_packet(data)
+            print(data)
             return_no = data.get_packet_sequence_no()
             if data.get_data_len() == 0:
                 print("No data or empty packet received!")
@@ -65,7 +66,7 @@ def receiver(r_in_port, r_out_port, c_r_in, filename):
                 file_to_write.write(data.get_packet_payload())
             acknowledgement_packet = Packet(0x497E, 1, return_no, 0, None)
 
-            bytestream_packet = pickle.dumps(acknowledgement_packet)
+            bytestream_packet = Packet.packet_to_bytes(acknowledgement_packet)
             r_out.send(bytestream_packet)
 
     

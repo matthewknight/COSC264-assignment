@@ -1,3 +1,5 @@
+import jsonpickle
+
 class Packet(object):
     def __init__(self, magic_no, p_type, seq_no, data_len, data):
         # Magic number (should be 0x497E)
@@ -41,10 +43,23 @@ class Packet(object):
         return self.seq_no
     
     def set_data_len(self, val):
-        self.data_len += val    
+        self.data_len = val    
 
     def get_data_len(self):
         return self.data_len
 
     def get_packet_payload(self):
         return self.data
+
+    def packet_to_bytes(packetToConvert):
+        packetStr = jsonpickle.encode(packetToConvert)
+        packetBytes = packetStr.encode()
+        return packetBytes
+    
+    def bytes_to_packet(packetBytes):
+        packetStr = packetBytes.decode()
+        packetFinal = jsonpickle.decode(packetStr)
+        return packetFinal
+    
+
+    
