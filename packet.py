@@ -1,4 +1,5 @@
-import jsonpickle
+import pickle
+
 
 class Packet(object):
     def __init__(self, magic_no, p_type, seq_no, data_len, data):
@@ -52,14 +53,10 @@ class Packet(object):
         return self.data
 
     def packet_to_bytes(packetToConvert):
-        packetStr = jsonpickle.encode(packetToConvert)
-        packetBytes = packetStr.encode()
-        return packetBytes
+        return pickle.dumps(packetToConvert)
     
     def bytes_to_packet(packetBytes):
-        packetStr = packetBytes.decode()
-        packetFinal = jsonpickle.decode(packetStr)
-        return packetFinal
+        return pickle.loads(packetBytes)
     
 
     

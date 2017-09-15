@@ -56,7 +56,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
             packet_to_send = Packet(0x497E, 0, sequence_no, len(data_read), data_read)
             bytes_position += 512
 
-
+        print(packet_to_send)
         bytestream_packet = Packet.packet_to_bytes(packet_to_send)
 
         bytestream_packets_buffer.append(bytestream_packet)
@@ -69,7 +69,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
            
             ready = select.select([s_in_connection], [], [], 1)
             if ready[0]:
-                data = s_in_connection.recv(1024)
+                data = s_in_connection.recv(2048)
                 data = Packet.bytes_to_packet(data)
                 print(data)
                 print(data.get_packet_sequence_no(), sequence_no)

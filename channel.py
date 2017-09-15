@@ -59,8 +59,8 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
             if ready[0][0] is s_in_connection:
                 
                 # Receive the pakcet & unpickle
-                packet_to_fwd = s_in_connection.recv(1024)
-                unpickled_packet_to_fwd = Packet.bytes_to_packet(packet_to_fwd)
+                packet_to_fwd = s_in_connection.recv(2048)
+                unpickled_packet_to_fwd = pickle.loads(packet_to_fwd)
                 
                 # Print out details
                 print('Sender -> Receiver; Type {}'.format(unpickled_packet_to_fwd.get_packet_type()))
@@ -99,7 +99,7 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
             elif ready[0][0] is r_in_connection:
                 
                 # Receive the pakcet & unpickle
-                packet_to_fwd = r_in_connection.recv(1024)
+                packet_to_fwd = r_in_connection.recv(2048)
                 unpickled_packet_to_fwd = Packet.bytes_to_packet(packet_to_fwd)
                 
                 # Print out details
@@ -164,6 +164,10 @@ def main():
     if float(sys.argv[7]) > 1.0 or float(sys.argv[7]) < 0.0:
         raise Exception("Channel: Loss rate invalid (Must be 0 < P < 1)")
     channel(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), float(sys.argv[7]))
+
+    # channel 42069 42070 42073 42074 42071 0.1
+    # sender 42075 42068 42069 access.log
+    # receiver 42071 42072 42073 outputfile.txt
     
 
 main()
