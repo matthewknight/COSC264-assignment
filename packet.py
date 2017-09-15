@@ -14,8 +14,6 @@ class Packet(object):
         self.p_type = p_type
 
         # Sequence value in binary
-        # if not all(c in '01' for c in str(seq_no)):
-        #     raise Exception("Packet non-binary sequence number")
         self.seq_no = seq_no
 
         # Data length field, 0 <= x <= 512
@@ -25,6 +23,9 @@ class Packet(object):
 
         # Actual packet payload
         self.data = data
+
+        # Checksum made at packet initialisation
+        self.checksum = self.magic_no + self.seq_no + self.p_type + self.data_len
 
     def __str__(self):
         return 'Packet: (MagicNo: {} Type: {} Seq No: {} Data Len: {} Payload: {})'.format(self.get_magic_no(),
@@ -52,11 +53,26 @@ class Packet(object):
     def get_packet_payload(self):
         return self.data
 
-    def packet_to_bytes(packetToConvert):
-        return pickle.dumps(packetToConvert)
-    
-    def bytes_to_packet(packetBytes):
-        return pickle.loads(packetBytes)
+    def get_checksum(self):
+        return self.checksum
+
+
+# Helper function to convert packet to bytes
+def packet_to_bytes(packetToConvert):
+    return pickle.dumps(packetToConvert)
+
+
+# Helper function to convert bytes to packet
+def bytes_to_packet(packetBytes):
+    return pickle.loads(packetBytes)
+
+
+def check_packet_checksum(packetToCheck):
+    if (packetToCheck.get_magic_no() + packetToCheck.get_packet_type() + packetToCheck.get_packet_sequence_no()
+        + packetToCheck.get_data_len() != packetToCheck.get_checksum()):
+        return False
+    else:
+        return True
     
 
     

@@ -4,6 +4,8 @@ import pickle
 import jsonpickle
 import select
 import socket
+
+import packet
 from packet import Packet
 import socket
 
@@ -13,13 +15,29 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
     check_ports(s_in_port, s_out_port, c_s_in_port)
 
-    s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s_in.bind((host, s_in_port))
+    try:
+        s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    except socket.error as e:
+        raise Exception("Failed to initialise s_in")
 
-    s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s_out.bind((host, s_out_port))
+    try:
+        s_in.bind((host, s_in_port))
+    except socket.error as e:
+        raise Exception("Failed to bind s_in")
+
+    try:
+        s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    except socket.error as e:
+        raise Exception("Failed to initialise s_out")
+
+    try:
+        s_out.bind((host, s_out_port))
+    except socket.error as e:
+        raise Exception("Failed to bind s_out")
+
+
     print("Channel ports successfully initialised/bound")
 
     s_out.connect((host, c_s_in_port))
@@ -34,7 +52,7 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
     exit_flag = False
     exit_flag2 = False
 
-    sequence_no = 1
+    next = 0
     bytestream_packets_buffer = []
 
     try:
@@ -48,16 +66,16 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
         print(bytes_position)
         if len(data_read) == 0:
-            sequence_no = 0
-            packet_to_send = Packet(0x497E, 0, sequence_no, 0, None)
+            next = 0
+            packet_to_send = Packet(0x497E, 0, next, 0, None)
             exit_flag = True
             
         else:
-            packet_to_send = Packet(0x497E, 0, sequence_no, len(data_read), data_read)
+            packet_to_send = Packet(0x497E, 0, next, len(data_read), data_read)
             bytes_position += 512
 
         print(packet_to_send)
-        bytestream_packet = Packet.packet_to_bytes(packet_to_send)
+        bytestream_packet = packet.packet_to_bytes(packet_to_send)
 
         bytestream_packets_buffer.append(bytestream_packet)
 
@@ -65,16 +83,19 @@ def sender(s_in_port, s_out_port, c_s_in_port, file_name):
 
         while not confirmation_received:
             s_out.send(bytestream_packets_buffer[0])
-            print("Ready to send packet")
            
             ready = select.select([s_in_connection], [], [], 1)
             if ready[0]:
-                data = s_in_connection.recv(2048)
-                data = Packet.bytes_to_packet(data)
+                data = s_in_connection.recv(8196)
+                data = packet.bytes_to_packet(data)
                 print(data)
-                print(data.get_packet_sequence_no(), sequence_no)
-                if data.get_packet_sequence_no() == sequence_no:
-                    sequence_no += 1
+
+                if packet.check_packet_checksum(data) == False:
+                    continue
+
+                print(data.get_packet_sequence_no(), next)
+                if data.get_packet_sequence_no() == next:
+                    next = 1 - next
                     bytestream_packets_buffer.pop(0)
                     confirmation_received = True
 
@@ -93,7 +114,6 @@ def check_ports(*args):
 
 def main():
 
-    
     if len(sys.argv) != 5:
         print("Usage: sender.py <s_in_port> <s_out_port> <c_s_in_port> <inputfile>")
         exit()

@@ -1,33 +1,59 @@
 import socket
-import pickle
-import jsonpickle
 import select
 import sys
 import time
 import random
 import sys
-from packet import Packet
+import packet
 
 
 def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_in_port, loss_rate):
     host = '127.0.0.1'
 
+    try:
+        s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    except socket.error as e:
+        raise Exception("Failed to initialise c_s_in")
 
-    s_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s_in.bind((host, c_s_in_port))
+    try:
+        s_in.bind((host, c_s_in_port))
+    except socket.error as e:
+        raise Exception("Failed to bind socket c_s_in")
 
-    s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s_out.bind((host, c_s_out_port))
+    try:
+        s_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    except socket.error as e:
+        raise Exception("Failed to initialise c_s_out")
 
-    r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    r_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    r_in.bind((host, c_r_in_port))
+    try:
+        s_out.bind((host, c_s_out_port))
+    except socket.error as e:
+        raise Exception("Failed to bind socket c_s_out")
 
-    r_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    r_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    r_out.bind((host, c_r_out_port))
+    try:
+        r_in = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        r_in.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    except socket.error as e:
+        raise Exception("Failed to initialise c_r_in")
+
+    try:
+        r_in.bind((host, c_r_in_port))
+    except socket.error as e:
+        raise Exception("Failed to bind socket c_r_in")
+
+    try:
+        r_out = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        r_out.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    except socket.error as e:
+        raise Exception("Failed to initialise c_r_out")
+
+    try:
+        r_out.bind((host, c_r_out_port))
+    except socket.error as e:
+        raise Exception("Failed to bind socket c_r_out")
+
 
     print("Channel ports successfully initialised/bound")
 
@@ -50,17 +76,22 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
 
     received_message_s = False
     final_packet = False
+
+    sender_packets = 0
     while True:
         error_added = False
         ready = select.select([s_in_connection, r_in_connection], [], [], 1);
-        
+
         if ready[0]:
             # Packet received from s_in. Forward to r_out.
             if ready[0][0] is s_in_connection:
                 
                 # Receive the pakcet & unpickle
-                packet_to_fwd = s_in_connection.recv(2048)
-                unpickled_packet_to_fwd = pickle.loads(packet_to_fwd)
+                packet_to_fwd = s_in_connection.recv(8196)
+                sender_packets += 1
+                print("    Current sender packet count: {}".format(sender_packets))
+
+                unpickled_packet_to_fwd = packet.bytes_to_packet(packet_to_fwd)
                 
                 # Print out details
                 print('Sender -> Receiver; Type {}'.format(unpickled_packet_to_fwd.get_packet_type()))
@@ -88,7 +119,7 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
                     print("    Adding bit error of {}".format(data_len_increment))
                                      
                 # Pickle it up again
-                bytestream_packet = Packet.packet_to_bytes(unpickled_packet_to_fwd)
+                bytestream_packet = packet.packet_to_bytes(unpickled_packet_to_fwd)
                 bytestream_packets_buffer = []
                 bytestream_packets_buffer.append(bytestream_packet)
                 error_added = True
@@ -99,8 +130,8 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
             elif ready[0][0] is r_in_connection:
                 
                 # Receive the pakcet & unpickle
-                packet_to_fwd = r_in_connection.recv(2048)
-                unpickled_packet_to_fwd = Packet.bytes_to_packet(packet_to_fwd)
+                packet_to_fwd = r_in_connection.recv(8196)
+                unpickled_packet_to_fwd = packet.bytes_to_packet(packet_to_fwd)
                 
                 # Print out details
                 print('Sender <- Receiver; Type {}'.format(unpickled_packet_to_fwd.get_packet_type()))
@@ -108,11 +139,7 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
                 # Check magicNo
                 if unpickled_packet_to_fwd.get_magic_no() != 0x497E:
                     continue
-                
-                # If last packet recveived
-                if unpickled_packet_to_fwd.get_packet_sequence_no() == 0:
-                    print("    Last packet received, terminating channel")
-                    break
+
                     
                 # Chance to drop packet (from loss_rate)
                 rand_num_u = random.uniform(0, 1)
@@ -126,14 +153,14 @@ def channel(c_s_in_port, c_s_out_port, c_r_in_port, c_r_out_port, s_in_port, r_i
                 rand_num_v = random.uniform(0, 1)                
                 if rand_num_v < 0.1:
                     
-                    #unpickle, change, pickle
+                    #unpickle, change
                     data_len_increment = random.randint(1, 10)
                     current_data_len = unpickled_packet_to_fwd.get_data_len()
                     unpickled_packet_to_fwd.set_data_len(current_data_len + data_len_increment)
                     print("    Adding bit error of {}".format(data_len_increment))
                                      
                 # Pickle it up again
-                bytestream_packet = Packet.packet_to_bytes(unpickled_packet_to_fwd)
+                bytestream_packet = packet.packet_to_bytes(unpickled_packet_to_fwd)
                 bytestream_packets_buffer = []
                 bytestream_packets_buffer.append(bytestream_packet)
                 error_added = True
